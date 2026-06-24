@@ -1,0 +1,11 @@
+resource_path: "./data"
+default_language: "zh"
+
+server:
+  name: "vibe-code-mcp"
+  version: "1.0.0"
+
+scan:
+  include_prompt_docs: false
+  max_summary_length: 500
+  languages: ["zh"]
