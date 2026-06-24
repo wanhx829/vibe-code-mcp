@@ -27,7 +27,7 @@ python server.py
 
 预期输出（stderr）：
 ```
-Vibe Coding MCP Server 启动完成: 47 提示词, 14 技能, 17 文档
+Vibe Coding MCP Server 启动完成: 47 提示词, 22 技能, 17 文档
 ```
 
 按 Ctrl+C 退出。

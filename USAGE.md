@@ -40,7 +40,7 @@ MCP（Model Context Protocol）是一种标准化协议，允许 AI 助手（如
 | 资源类型 | 数量 | 说明 |
 |----------|------|------|
 | 提示词 | 47 | 编程、系统、用户、元提示词等分类 |
-| 技能 | 14 | PostgreSQL、CCXT、Telegram 等专业领域 |
+| 技能 | 22 | PostgreSQL、Agent、MCP、RAG、代码审查等专业领域 |
 | 文档 | 17 | 方法论、模板、教程等 |
 | 模板 | 1 | 项目上下文文档模板 |
 
@@ -157,7 +157,7 @@ python server.py
 
 预期输出（stderr）：
 ```
-Vibe Coding MCP Server 启动完成: 47 提示词, 14 技能, 17 文档
+Vibe Coding MCP Server 启动完成: 47 提示词, 22 技能, 17 文档
 ```
 
 按 `Ctrl+C` 退出。

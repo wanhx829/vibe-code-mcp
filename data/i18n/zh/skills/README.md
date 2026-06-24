@@ -1,6 +1,6 @@
 # 🎯 AI Skills 技能库
 
-`i18n/zh/skills/` 目录存放 AI 技能（Skills），这些是比提示词更高级的能力封装，可以让 AI 在特定领域表现出专家级水平。当前包含 **14 个**专业技能。
+`i18n/zh/skills/` 目录存放 AI 技能（Skills），这些是比提示词更高级的能力封装，可以让 AI 在特定领域表现出专家级水平。当前包含 **22 个**专业技能。
 
 ## 目录结构
 
@@ -10,6 +10,16 @@ i18n/zh/skills/
 │
 ├── # === 元技能（核心） ===
 ├── claude-skills/           # ⭐ 元技能：生成 Skills 的 Skills（11KB）
+│
+├── # === AI 编程与 Agent 工程 ===
+├── agent-engineering/        # Agent 架构、工具、记忆、评估
+├── context-engineering/      # 上下文选择、压缩、记忆、长任务维护
+├── mcp-development/          # MCP Server 设计、工具 schema、调试
+├── prompt-engineering/       # Prompt 设计、优化、评估
+├── rag-development/          # RAG 检索、分块、引用、评估
+├── llm-app-development/      # LLM 应用架构、工具调用、运维
+├── code-review/              # 代码审查、风险分级、中文 review 表达
+├── debugging/                # 系统化调试、根因定位、验证
 │
 ├── # === Claude 工具 ===
 ├── claude-code-guide/       # Claude Code 使用指南（9KB）
