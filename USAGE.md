@@ -12,6 +12,8 @@
 4. [安装指南](#4-安装指南)
 5. [配置说明](#5-配置说明)
 6. [CLI 集成](#6-claude-cli-集成)
+   - [6.5 MCP Server 工作原理](#65-mcp-server-工作原理)
+   - [6.6 Codex CLI 集成](#66-codex-cli-集成)
 7. [工具详细说明](#7-工具详细说明)
 8. [使用场景与示例](#8-使用场景与示例)
 9. [工作流最佳实践](#9-工作流最佳实践)
@@ -339,7 +341,71 @@ Claude 应列出 4 个 MCP 工具。
 
 ---
 
-## 6.5 Codex CLI 集成
+## 6.5 MCP Server 工作原理
+
+### 是否需要手动启动 Server？
+
+**不需要**。Claude CLI 会自动管理 MCP Server 的生命周期。
+
+### 工作流程
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     Claude CLI                              │
+│  1. 读取 ~/.claude/settings.json 配置                       │
+│  2. 自动启动 MCP Server 子进程                              │
+│  3. 通过 stdin/stdout 与 Server 通信 (MCP 协议)             │
+│  4. 用户提问时自动调用 MCP 工具                              │
+│  5. 退出时自动关闭 Server 进程                               │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 关键特性
+
+| 特性 | 说明 |
+|------|------|
+| 自动启动 | Claude CLI 启动时自动启动 MCP Server |
+| 自动停止 | Claude CLI 退出时自动关闭 Server |
+| 进程管理 | Server 是 Claude CLI 的子进程，无需手动管理 |
+| 通信方式 | stdio（标准输入输出），不是 HTTP 服务 |
+| 多实例 | 每次启动 Claude CLI 都会创建新的 Server 实例 |
+
+### 使用流程
+
+1. **一次性配置**：编辑 `~/.claude/settings.json` 添加 MCP Server
+2. **启动 Claude CLI**：直接运行 `claude` 命令
+3. **直接对话**：无需任何额外操作，直接提问即可
+
+```
+用户：帮我搜索架构设计相关的提示词
+Claude：（自动调用 search_prompts 工具）
+       找到以下相关提示词...
+```
+
+### 常见误解
+
+- **误解**：需要先运行 `python server.py` 启动服务
+- **正确**：无需手动启动，Claude CLI 会自动处理
+
+### 配置中为什么用 command + args 而不是端口？
+
+MCP Server 使用 **stdio 传输**（标准输入输出），不是 HTTP 服务：
+
+```json
+{
+  "command": "python",           // 启动命令
+  "args": ["server.py"],        // 命令参数
+  "env": { ... }                // 环境变量
+}
+```
+
+这与 HTTP 服务不同：
+- HTTP 服务：需要先启动，监听端口，然后客户端连接
+- MCP Server：由 Claude CLI 直接启动子进程，通过管道通信
+
+---
+
+## 6.6 Codex CLI 集成
 
 ### 配置方式
 
