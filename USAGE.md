@@ -11,7 +11,7 @@
 3. [系统要求](#3-系统要求)
 4. [安装指南](#4-安装指南)
 5. [配置说明](#5-配置说明)
-6. [Claude CLI 集成](#6-claude-cli-集成)
+6. [CLI 集成](#6-claude-cli-集成)
 7. [工具详细说明](#7-工具详细说明)
 8. [使用场景与示例](#8-使用场景与示例)
 9. [工作流最佳实践](#9-工作流最佳实践)
@@ -335,6 +335,83 @@ Claude 应列出 4 个 MCP 工具。
     }
   }
 }
+```
+
+---
+
+## 6.5 Codex CLI 集成
+
+### 配置方式
+
+Codex CLI 使用 TOML 格式的配置文件。
+
+#### 用户级配置（推荐）
+
+编辑 `~/.codex/config.toml` 文件：
+
+```toml
+[mcp_servers.vibe-code-mcp]
+command = "python"
+args = ["D:/path/to/vibe-code-mcp/server.py"]
+
+[mcp_servers.vibe-code-mcp.env]
+VIBE_CONFIG = "D:/path/to/vibe-code-mcp/config.yaml"
+```
+
+**配置说明**：
+- `command`：Python 解释器路径
+- `args`：server.py 的绝对路径
+- `env.VIBE_CONFIG`：配置文件的绝对路径
+
+#### 项目级配置
+
+在项目根目录创建 `codex.toml`，内容同上。
+
+**适用场景**：不同项目使用不同的 MCP Server 配置
+
+### 配置文件位置
+
+| 操作系统 | 配置文件路径 |
+|----------|--------------|
+| Windows | `C:\Users\USERNAME\.codex\config.toml` |
+| macOS | `/Users/USERNAME/.codex/config.toml` |
+| Linux | `/home/USERNAME/.codex/config.toml` |
+
+### 验证集成
+
+1. **重启 Codex CLI**（必须）
+
+2. **测试工具调用**：
+
+```
+帮我搜索架构设计相关的提示词
+```
+
+Codex 应自动调用 `search_prompts` 工具并返回结果。
+
+3. **查看工具列表**：
+
+```
+你有哪些可用的工具？
+```
+
+Codex 应列出 4 个 MCP 工具。
+
+### 多个 MCP Server
+
+可以同时配置多个 MCP Server：
+
+```toml
+[mcp_servers.vibe-code-mcp]
+command = "python"
+args = ["D:/path/to/vibe-code-mcp/server.py"]
+
+[mcp_servers.vibe-code-mcp.env]
+VIBE_CONFIG = "D:/path/to/vibe-code-mcp/config.yaml"
+
+[mcp_servers.another-mcp]
+command = "python"
+args = ["D:/path/to/another/server.py"]
 ```
 
 ---

@@ -140,6 +140,35 @@ Vibe Coding MCP Server 启动完成: 47 提示词, 14 技能, 17 文档
 
 Claude 应自动调用 `search_prompts` 工具并返回结果。
 
+## Codex CLI 集成
+
+### 用户级配置
+
+编辑 `~/.codex/config.toml`：
+
+```toml
+[mcp_servers.vibe-code-mcp]
+command = "python"
+args = ["D:/path/to/vibe-code-mcp/server.py"]
+
+[mcp_servers.vibe-code-mcp.env]
+VIBE_CONFIG = "D:/path/to/vibe-code-mcp/config.yaml"
+```
+
+### 项目级配置
+
+在项目根目录创建 `codex.toml`，内容同上。
+
+### 验证
+
+在 Codex CLI 中输入：
+
+```
+帮我搜索架构设计相关的提示词
+```
+
+Codex 应自动调用 `search_prompts` 工具并返回结果。
+
 ## 项目结构
 
 ```
